@@ -49,7 +49,7 @@ export class ServiceApiService {
      * @returns {Promise<axios.AxiosResponse<any>>}
      */
 
-    getService(id) {
+    getServiceById(id) {
         return http.get(`/services/${id}`);
     }
 
