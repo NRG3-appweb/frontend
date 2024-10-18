@@ -7,7 +7,6 @@ export default {
   components: {},
   data() {
     return {
-      service: Service,
       currentService: Service,
       serviceApiService: new ServiceApiService(),
     };
@@ -54,24 +53,42 @@ export default {
 </script>
 
 <template>
-  <div style="margin-top: 10rem; background-color: #1a1a1a; padding: 5rem; border-radius: 1rem;">
-    <div class="flex gap-1">
-      <div>
-        <img :src="currentService.img" alt="Service Image" />
-      </div>
-      <div>
-        <h1>{{ currentService.service_name }}</h1>
-        <p>{{ $t('clientServiceDetail.description') }}: {{ currentService.description }}</p>
-        <p>{{ $t('clientServiceDetail.price') }}: {{ currentService.price }}</p>
-        <p>{{ $t('clientServiceDetail.duration') }}: {{ currentService.duration }}</p>
-      </div>
+  <div style="background-color: #1a1a1a" class="flex flex-row m-3 mx-8">
+    <div class="flex align-items-center justify-content-center m-8 fadein animation-duration-1000">
+      <img :src="currentService.img" alt="Service Image" />
     </div>
-    <div class="mt-7">
-      <pv-button :label=" $t('clientServiceDetail.bookNow') " class="w-full" />
+    <div class="flex align-items-start justify-content-center m-8 text-left max-w-30rem">
+      <div>
+        <div>
+          <span class="text-7xl font-bold">{{currentService.service_name}}</span>
+        </div>
+        <div class="flex justify-content-between  ">
+          <div>
+            <span class="text-4xl font-bold"> PEN {{currentService.price}}</span>
+          </div>
+          <div class="flex align-items-center justify-content-center gap-2" >
+            <span class="text-xl"> {{currentService.rating}}</span>
+            <i class="pi pi-star-fill"/>
+          </div>
+        </div>
+        <div class="m-1">
+          <pv-button :label=" $t('clientServiceDetail.bookNow') " class="w-full" />
+        </div>
+        <div>
+          <pv-divider type="solid"/>
+        </div>
+        <div>
+          <span> Duration: {{currentService.duration}} mins </span>
+        </div>
+        <div >
+          <span> {{currentService.description}} </span>
+        </div>
+
+      </div>
     </div>
   </div>
 </template>
 
 <style scoped>
-/* Add any necessary styles here */
+
 </style>
