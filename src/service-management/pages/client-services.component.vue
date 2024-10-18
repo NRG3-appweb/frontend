@@ -43,7 +43,7 @@ export default {
               service.description,
               service.price,
               service.duration,
-              service.raiting,
+              service.rating,
               service.sales,
               service.created_at,
               service.img
