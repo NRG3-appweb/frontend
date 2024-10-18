@@ -7,7 +7,7 @@ export class Service {
         description = '',
         price = 0,
         duration = 0,
-        raiting = 0,
+        rating = 0,
         sales = 0,
         created_at = new Date(),
         img = '',
@@ -19,7 +19,7 @@ export class Service {
         this.description = description;
         this.price = price;
         this.duration = duration;
-        this.raiting = raiting;
+        this.rating = rating;
         this.sales = sales;
         this.created_at = new Date(created_at);
         this.img = img;
