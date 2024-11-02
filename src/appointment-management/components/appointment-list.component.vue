@@ -111,7 +111,7 @@ export default {
         <p><strong>Company:</strong> {{ selectedAppointment?.companyName }}</p>
         <p><strong>Date:</strong> {{ selectedAppointment?.date }}</p>
         <p><strong>Time:</strong> {{ selectedAppointment?.time }}</p>
-        <button @click="closeAppointmentDialog">Close</button>
+        <button @click="closeAppointmentDialog" class="close-button">Close</button>
       </div>
     </div>
 
@@ -196,6 +196,16 @@ export default {
   background-color: #999;
 }
 
+.dialog-card .close-button {
+  color: #ffffff; /* Cambia este valor por el color que prefieras */
+  background-color: black;
+  border: none;
+}
+
+.dialog-card .close-button:hover {
+  background-color: red;
+  color: #ffffff; /* Color al pasar el cursor */
+}
 @media (min-width: 768px) {
   .appointment-list-container {
     flex-direction: row;
