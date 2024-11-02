@@ -2,55 +2,43 @@
   "categories": [
     {
       "id": 1,
-      "category_name": "Category 1",
-      "description": "Category 1 description"
+      "category_name": "Hair Care",
+      "description": "Comprehensive hair care services including cuts, styles, coloring, and nourishing treatments to enhance hair health and beauty."
     },
     {
       "id": 2,
-      "category_name": "Category 2",
-      "description": "Category 2 description"
+      "category_name": "Skin Care",
+      "description": "Professional skin care treatments such as facials, chemical peels, and masks to rejuvenate and maintain radiant skin."
     },
     {
       "id": 3,
-      "category_name": "Category 3",
-      "description": "Category 3 description"
-    }
-  ],
-  "companies": [
-    {
-      "id": 1,
-      "name": "Company 1",
-      "ruc": "12345678901",
-      "email": "sample@sample.com",
-      "website": "www.sample.com",
-      "description": "Company 1 description",
-      "created_at": "2021-01-01T00:00:00.000Z"
-    }
-  ],
-  "schedules": [
-    {
-      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1727432480/dejsrdntls0e2xufqkud.jpg",
-      "id": 1,
-      "title": "Hair Cut -SOHO",
-      "date": "Jun 10, 2024",
-      "time": "09:41 AM",
-      "place": "123 Oakwood Avenue Springfield, IL 62704 United States"
+      "category_name": "Nail Care",
+      "description": "Services to beautify and strengthen nails, including manicures, pedicures, and specialized nail treatments."
     },
     {
-      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1727432480/djelvjcgzbxpirkppocv.jpg",
-      "id": 2,
-      "title": "Hair dye-MY LUCKY",
-      "date": "Jun 10, 2024",
-      "time": "09:41 AM",
-      "place": "123 Oakwood Avenue Springfield, IL 62704 United States"
+      "id": 4,
+      "category_name": "Massage Therapy",
+      "description": "Relaxing and therapeutic massage options, from Swedish to deep tissue, designed to reduce stress and relieve tension."
     },
     {
-      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1727432480/ihavf3qatkyuzmc7vn0j.jpg",
-      "id": 3,
-      "title": "Botox treatment-MY LUCKY",
-      "date": "Jun 10, 2024",
-      "time": "09:41 AM",
-      "place": "123 Oakwood Avenue Springfield, IL 62704 United States"
+      "id": 5,
+      "category_name": "Makeup",
+      "description": "Professional makeup applications for weddings, events, and daily wear, customized to each client's style and occasion."
+    },
+    {
+      "id": 6,
+      "category_name": "Body Treatments",
+      "description": "Rejuvenating body treatments including scrubs, wraps, and detox therapies for revitalizing and exfoliating the skin."
+    },
+    {
+      "id": 7,
+      "category_name": "Hair Removal",
+      "description": "Comprehensive hair removal services such as waxing, threading, and advanced laser techniques for smooth skin."
+    },
+    {
+      "id": 8,
+      "category_name": "Spa Packages",
+      "description": "Luxury spa packages combining massages, facials, and other treatments to provide a full relaxation experience."
     }
   ],
   "services": [
@@ -58,11 +46,11 @@
       "id": 1,
       "category_id": 1,
       "company_id": 1,
-      "service_name": "Service 1",
-      "description": "Service 1 description",
+      "service_name": "Precision Haircut",
+      "description": "A precise and tailored haircut to enhance your style and personality.",
       "price": 100,
       "duration": 60,
-      "raiting": 4.1,
+      "rating": 4.1,
       "sales": 10,
       "created_at": "2021-01-01T00:00:00.000Z",
       "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp"
@@ -70,149 +58,391 @@
     {
       "id": 2,
       "category_id": 1,
-      "company_id": 1,
-      "service_name": "Service 2",
-      "description": "Service 2 description",
+      "company_id": 2,
+      "service_name": "Premium Hair Coloring",
+      "description": "Vibrant hair coloring that brings out the best in your style, using high-quality dyes.",
       "price": 200,
       "duration": 120,
-      "raiting": 4.1,
+      "rating": 4.1,
       "sales": 7,
       "created_at": "2021-01-01T00:00:00.000Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp"
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730509067/ml3nfalcxxftzeo7jj1y.jpg"
     },
     {
       "id": 3,
       "category_id": 2,
       "company_id": 1,
-      "service_name": "Service 3",
-      "description": "Service 3 description",
+      "service_name": "Botox Facial Rejuvenation",
+      "description": "A Botox treatment designed to smooth and rejuvenate facial skin.",
       "price": 300,
       "duration": 180,
-      "raiting": 4.1,
+      "rating": 4.1,
       "sales": 8,
       "created_at": "2021-01-01T00:00:00.000Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp"
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730509195/t7gwweqkfaibilps2pgb.jpg"
     },
     {
       "id": 4,
       "category_id": 2,
-      "company_id": 1,
-      "service_name": "Service 4",
-      "description": "Service 4 description",
+      "company_id": 2,
+      "service_name": "Luxury Facial Treatment",
+      "description": "An exclusive facial treatment to deeply cleanse and refresh your skin.",
       "price": 400,
       "duration": 240,
-      "raiting": 4.9,
+      "rating": 4.9,
       "sales": 8,
       "created_at": "2021-01-01T00:00:00.000Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp"
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730509252/z8ulpcd7qufe4bukcibk.jpg"
     },
     {
       "id": 5,
       "category_id": 3,
       "company_id": 1,
-      "service_name": "Service 5",
-      "description": "Service 5 description",
+      "service_name": "Eyelash Extensions",
+      "description": "Get beautiful, natural-looking eyelash extensions to enhance your eyes.",
       "price": 500,
       "duration": 300,
-      "raiting": 4.6,
+      "rating": 4.6,
       "created_at": "2021-01-01T00:00:00.000Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp"
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730509306/ot2okjrhdxm4f9kw2kgm.jpg"
     },
     {
       "id": 6,
       "category_id": 3,
-      "company_id": 1,
-      "service_name": "Service 6",
-      "description": "Service 6 description",
+      "company_id": 3,
+      "service_name": "Classic Manicure",
+      "description": "A traditional manicure service to clean, shape, and beautify your nails.",
       "price": 600,
       "duration": 360,
-      "raiting": 2.1,
+      "rating": 2.1,
       "created_at": "2021-01-01T00:00:00.000Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp"
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730509364/lb3x1v7kqxa4xhakjwjx.jpg"
     },
     {
       "id": 7,
       "category_id": 3,
-      "company_id": 1,
-      "service_name": "Service 7",
-      "description": "Service 7 description",
+      "company_id": 3,
+      "service_name": "Signature Pedicure",
+      "description": "A luxurious pedicure to rejuvenate tired feet, including exfoliation and polish.",
       "price": 700,
       "duration": 420,
-      "raiting": 3.1,
+      "rating": 3.1,
       "created_at": "2021-01-01T00:00:00.000Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp"
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730509405/g0uh7ngy4gndazv5tdsi.jpg"
     },
     {
       "id": 8,
       "category_id": 3,
       "company_id": 1,
-      "service_name": "Service 8",
-      "description": "Service 8 description",
+      "service_name": "Deluxe Nail Art",
+      "description": "Creative nail art service to customize your manicure or pedicure with beautiful designs.",
       "price": 800,
       "duration": 480,
-      "raiting": 4.1,
+      "rating": 4.1,
       "created_at": "2021-01-01T00:00:00.000Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp"
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730509470/lkgb93q244x3l9dhoqst.jpg"
     },
     {
-      "service_name": "Service Test",
-      "price": 23.5,
-      "description": "This is a service test",
-      "company_id": 1,
+      "id": 9,
+      "category_id": 4,
+      "company_id": 4,
+      "service_name": "Relaxing Swedish Massage",
+      "description": "A classic Swedish massage aimed at promoting relaxation and relieving muscle tension.",
+      "price": 150,
       "duration": 60,
-      "raiting": 3.5,
-      "sales": 8,
-      "created_at": "2024-09-27T15:27:23.299Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp",
-      "id": 9
+      "rating": 4.5,
+      "sales": 25,
+      "created_at": "2022-01-01T00:00:00.000Z",
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730512578/slhnzoi4nnehhpqy9hzd.jpg"
     },
     {
-      "service_name": "Service Test",
-      "price": 23.5,
-      "description": "This is a service test",
-      "company_id": 1,
-      "duration": 60,
-      "raiting": 3.5,
-      "sales": 8,
-      "created_at": "2024-09-27T15:27:29.942Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp",
-      "id": 10
+      "id": 10,
+      "category_id": 4,
+      "company_id": 5,
+      "service_name": "Deep Tissue Massage",
+      "description": "A deep tissue massage that targets the deeper layers of muscles and connective tissue.",
+      "price": 200,
+      "duration": 90,
+      "rating": 4.8,
+      "sales": 18,
+      "created_at": "2022-02-15T00:00:00.000Z",
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730512578/cgc39sxnyz8nh0zoo4no.jpg"
     },
     {
-      "service_name": "Service Test 1",
-      "price": 35,
-      "description": "Chikronos services",
-      "company_id": 1,
-      "duration": 60,
-      "raiting": 3.5,
-      "sales": 8,
-      "created_at": "2024-09-27T15:28:56.798Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp",
-      "id": 11
+      "id": 11,
+      "category_id": 5,
+      "company_id": 3,
+      "service_name": "Bridal Makeup Package",
+      "description": "Complete bridal makeup package including trial session, wedding day application, and touch-up kit.",
+      "price": 500,
+      "duration": 120,
+      "rating": 4.9,
+      "sales": 5,
+      "created_at": "2023-03-01T00:00:00.000Z",
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730512579/a4c0rqyxzxumv6mkkvo4.jpg"
     },
     {
-      "service_name": "Service Test 2",
-      "price": 3.99,
-      "description": "This is a 3.99 service.",
-      "company_id": 1,
-      "duration": 60,
-      "raiting": 3.5,
-      "sales": 8,
-      "created_at": "2024-09-27T15:45:08.868Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp",
-      "id": 12
+      "id": 12,
+      "category_id": 5,
+      "company_id": 4,
+      "service_name": "Evening Glam Makeup",
+      "description": "Elegant and bold evening makeup to elevate your look for special events.",
+      "price": 300,
+      "duration": 90,
+      "rating": 4.7,
+      "sales": 30,
+      "created_at": "2023-04-01T00:00:00.000Z",
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730512579/vtpgr1fvdnpvxcvettq7.jpg"
     },
     {
-      "service_name": "Service Test Video",
-      "price": 12.45,
-      "description": "This is a video service test",
+      "id": 13,
+      "category_id": 6,
+      "company_id": 2,
+      "service_name": "Seaweed Body Wrap",
+      "description": "Detoxifying seaweed body wrap to nourish and rejuvenate the skin.",
+      "price": 250,
+      "duration": 75,
+      "rating": 4.6,
+      "sales": 10,
+      "created_at": "2023-05-10T00:00:00.000Z",
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730512579/yguxmjloyr4i9zppvfuo.jpg"
+    },
+    {
+      "id": 14,
+      "category_id": 6,
       "company_id": 1,
+      "service_name": "Coffee Body Scrub",
+      "description": "Energizing body scrub with coffee extracts to exfoliate and smoothen the skin.",
+      "price": 180,
+      "duration": 45,
+      "rating": 4.4,
+      "sales": 20,
+      "created_at": "2023-06-15T00:00:00.000Z",
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730512579/vqqfduv1xguzvacpgvah.jpg"
+    },
+    {
+      "id": 15,
+      "category_id": 7,
+      "company_id": 2,
+      "service_name": "Full Body Wax",
+      "description": "Comprehensive full-body waxing service for smooth and hair-free skin.",
+      "price": 220,
+      "duration": 90,
+      "rating": 4.2,
+      "sales": 15,
+      "created_at": "2023-07-01T00:00:00.000Z",
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730512579/cvikz6qhe1jr2ejpu9si.jpg"
+    },
+    {
+      "id": 16,
+      "category_id": 7,
+      "company_id": 5,
+      "service_name": "Laser Hair Removal",
+      "description": "Permanent hair removal treatment for smooth legs using advanced laser technology.",
+      "price": 450,
       "duration": 60,
-      "raiting": 3.5,
+      "rating": 4.8,
       "sales": 8,
-      "created_at": "2024-09-27T16:07:52.485Z",
-      "img": "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp",
-      "id": 13
+      "created_at": "2023-08-15T00:00:00.000Z",
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730512579/evkprugktlnrz7xcwypy.jpg"
+    },
+    {
+      "id": 17,
+      "category_id": 8,
+      "company_id": 4,
+      "service_name": "Luxury Spa Day Package",
+      "description": "A full day of relaxation including massage, facial, body scrub, and lunch.",
+      "price": 900,
+      "duration": 360,
+      "rating": 4,
+      "sales": 3,
+      "created_at": "2023-09-01T00:00:00.000Z",
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730512579/mjer3ngyua51wrdsco0t.jpg"
+    },
+    {
+      "id": 18,
+      "category_id": 8,
+      "company_id": 1,
+      "service_name": "Half Day Relaxation Package",
+      "description": "Half-day spa package including a massage, facial, and body wrap for a refreshing experience.",
+      "price": 600,
+      "duration": 180,
+      "rating": 4.7,
+      "sales": 12,
+      "created_at": "2023-10-01T00:00:00.000Z",
+      "img": "https://res.cloudinary.com/dmegp6gmd/image/upload/v1730512578/a1rllm7mq1owr6amp8b7.jpg"
+    }
+  ],
+  "appointments": [
+    {
+      "id": 1,
+      "userId": 1,
+      "serviceId": 4,
+      "companyId": 1,
+      "reservationDate": "2023-12-28",
+      "status": "COMPLETED",
+      "date": "2023-12-30",
+      "time": "11:45 AM"
+    },
+    {
+      "id": 3,
+      "userId": 1,
+      "serviceId": 3,
+      "companyId": 3,
+      "reservationDate": "2023-12-10",
+      "status": "PENDING",
+      "date": "2023-12-15",
+      "time": "10:30 AM"
+    },
+    {
+      "id": 5,
+      "userId": 1,
+      "serviceId": 4,
+      "companyId": 5,
+      "reservationDate": "2023-12-28",
+      "status": "COMPLETED",
+      "date": "2023-12-30",
+      "time": "11:45 AM"
+    },
+    {
+      "id": 6,
+      "userId": 1,
+      "serviceId": 7,
+      "companyId": 1,
+      "reservationDate": "2024-10-30T06:11:42.538Z",
+      "status": "PENDING",
+      "date": "2024-10-02",
+      "time": "05:00 PM"
+    },
+    {
+      "id": 7,
+      "userId": 1,
+      "serviceId": 7,
+      "companyId": 4,
+      "reservationDate": "2023-12-28",
+      "status": "COMPLETED",
+      "date": "2023-12-30",
+      "time": "11:45 AM"
+    },
+    {
+      "id": 8,
+      "userId": 1,
+      "serviceId": 6,
+      "companyId": 3,
+      "reservationDate": "2023-12-28",
+      "status": "COMPLETED",
+      "date": "2023-12-30",
+      "time": "11:45 AM"
+    },
+    {
+      "id": 9,
+      "userId": 1,
+      "serviceId": 2,
+      "companyId": 2,
+      "reservationDate": "2024-11-02T03:57:52.019Z",
+      "status": "PENDING",
+      "date": "2024-11-07T05:00:00.000Z",
+      "time": "22:57",
+      "requirements": null
+    },
+    {
+      "id": 11,
+      "userId": 1,
+      "serviceId": 3,
+      "companyId": 1,
+      "reservationDate": "2024-10-30T06:11:42.538Z",
+      "status": "PENDING",
+      "date": "2024-11-02",
+      "time": "07:00 PM"
+    }
+  ],
+  "companies": [
+    {
+      "id": 1,
+      "name": "SOHO",
+      "img": "https://static.vecteezy.com/system/resources/previews/007/619/657/non_2x/eyelash-extension-logo-design-illustration-vector.jpg",
+      "ruc": "12345678901",
+      "email": "contact@soho.com",
+      "website": "www.soho.com",
+      "description": "SOHO offers high-quality beauty services including haircuts, manicures, and luxurious spa treatments.",
+      "created_at": "2021-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 2,
+      "name": "MY LUCKY",
+      "img": "https://i.pinimg.com/736x/57/3c/f9/573cf91ff9eaa858e3a9fca4e8eb7a26.jpg",
+      "ruc": "98765432109",
+      "email": "info@mylucky.com",
+      "website": "www.mylucky.com",
+      "description": "MY LUCKY specializes in hair styling and coloring services, using premium products to ensure customer satisfaction.",
+      "created_at": "2021-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 3,
+      "name": "MONTALVO",
+      "img": "https://img.freepik.com/vector-premium/logotipo-elegante-cosmeticos-minimos_278222-3305.jpg?semt=ais_hybrid",
+      "ruc": "11223344556",
+      "email": "support@montalvo.com",
+      "website": "www.montalvo.com",
+      "description": "MONTALVO offers professional skin and body treatments tailored to meet individual beauty needs.",
+      "created_at": "2021-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 4,
+      "name": "Elegant Beauty",
+      "img": "https://media.fashionnetwork.com/cdn-cgi/image/fit=contain,width=1000,height=1000,format=auto/m/8d41/9c43/dd3f/fdac/f911/1831/45d5/a35b/7cd2/1eba/1eba.jpg",
+      "ruc": "22334455667",
+      "email": "hello@elegantbeauty.com",
+      "website": "www.elegantbeauty.com",
+      "description": "Elegant Beauty provides top-notch beauty services including makeup, manicures, and spa packages.",
+      "created_at": "2024-01-01T00:00:00.000Z"
+    },
+    {
+      "id": 5,
+      "name": "Cosmo Luxe",
+      "img": "https://www.informesdeexpertos.com/files/images/las-principales-empresas-de-cosmeticos-en-america-latina.jpg",
+      "ruc": "33445566778",
+      "email": "contact@cosmoluxe.com",
+      "website": "www.cosmoluxe.com",
+      "description": "Cosmo Luxe offers a range of premium beauty and wellness services for those seeking an exclusive spa experience.",
+      "created_at": "2024-01-01T00:00:00.000Z"
+    }
+  ],
+  "users": [
+    {
+      "id": 1,
+      "name": "John Doe",
+      "email": "johndoe@example.com",
+      "phone": "555-1234",
+      "address": "123 Oakwood Avenue, Springfield, IL, USA"
+    },
+    {
+      "id": 2,
+      "name": "Jane Smith",
+      "email": "janesmith@example.com",
+      "phone": "555-5678",
+      "address": "456 Elm Street, Springfield, IL, USA"
+    },
+    {
+      "id": 3,
+      "name": "Mark Johnson",
+      "email": "markjohnson@example.com",
+      "phone": "555-9101",
+      "address": "789 Maple Avenue, Springfield, IL, USA"
+    }
+  ],
+  "reviews": [
+    {
+      "rating": 3,
+      "comment": "Great service, but I expected a bit more attention to detail.",
+      "createdDate": "2024-10-27T03:41:07.310Z",
+      "appointmentId": 1,
+      "userId": 1,
+      "images": [
+        "https://res.cloudinary.com/dmeftoblw/image/upload/v1730091959/tb5bqzrvm54cvuenglij.jpg",
+        "https://res.cloudinary.com/dmeftoblw/image/upload/v1730092263/qkcv3nx1dsupdulnfr3s.jpg",
+        null
+      ]
     }
   ]
 }

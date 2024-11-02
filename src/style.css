@@ -3,14 +3,24 @@
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
+  color-scheme: light ;
+
   background-color: #242424;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  --p-inputtext-background: #ffffff !important;
+  --p-togglebutton-checked-background: #D1E4FA !important;
+  --p-togglebutton-content-checked-background: #D1E4FA !important;
+  --p-togglebutton-checked-color: #37123c !important;
+  --p-togglebutton-background: #37123c !important;
+  --p-togglebutton-color: #D1E4FA !important;
+  --p-togglebutton-hover-background: #37123c !important;
+  --p-inputtext-color: #000000 !important;
+  --p-rating-icon-hover-color: #e1c400 !important;
+  --p-rating-icon-active-color: #e1c400 !important;
 }
 
 a {
@@ -59,7 +69,6 @@ button:focus-visible {
 }
 
 #app {
-  max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;

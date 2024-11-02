@@ -4,18 +4,18 @@ import BusinessServiceList from "../components/business-service-list.component.v
 
 export default {
   name: "business-services",
-  components: {BusinessServiceList, ServiceList}
+  components: { BusinessServiceList, ServiceList }
 }
 </script>
 
 <template>
   <pv-card class="mt-5 mb-5 bg-white">
     <template #header>
-      <h1 class="header-left" >Our Services</h1>
+      <h1 class="header-left">{{$t('businessServices.ourServices')}}</h1>
     </template>
     <template #content>
       <div class="content-center">
-        <business-service-list/>
+        <business-service-list />
       </div>
     </template>
     <template #footer>
@@ -23,9 +23,9 @@ export default {
         <router-link to="/business-service-management/create-service">
           <pv-button icon="pi pi-plus"
                      icon-pos="right"
-                     label="Add service"
+                     :label="$t('businessServices.addService')"
                      severity="secondary"
-                     class="custom-purple-button"/>
+                     class="custom-purple-button" />
         </router-link>
       </div>
     </template>
@@ -33,28 +33,27 @@ export default {
 </template>
 
 <style scoped>
-  @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@200;300;400;500;700;800;900&display=swap');
 
-  .add-button{
-    margin: 3rem;
-  }
-  .custom-purple-button{
-    background-color: #37123C;
-    border-color: #37123C;
-    color: #ffffff;
-  }
-  .content-center {
-
-    display: flex;
-    justify-content: center;
-    padding-left: 3.5rem;
-    padding-right: 3.5rem;
-  }
-  .header-left {
-    color: #37123C;
-    font-family: 'Tajawal', sans-serif;
-    font-weight: normal;
-    text-align: left;
-    padding-left: 35px;
-  }
+.add-button {
+  margin: 3rem;
+}
+.custom-purple-button {
+  background-color: #37123C;
+  border-color: #37123C;
+  color: #ffffff;
+}
+.content-center {
+  display: flex;
+  justify-content: center;
+  padding-left: 3.5rem;
+  padding-right: 3.5rem;
+}
+.header-left {
+  color: #37123C;
+  font-family: 'Tajawal', sans-serif;
+  font-weight: normal;
+  text-align: left;
+  padding-left: 35px;
+}
 </style>

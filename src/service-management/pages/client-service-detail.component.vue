@@ -1,45 +1,89 @@
 <script>
-import {ServicesApiService} from "../services/services-api.service.js";
-import {Service} from "../model/service.entity.js";
+import {ServiceApiService} from "../services/service-api.service.js";
+import {Service} from "../../shared/model/service.entity.js";
 
 export default {
   name: "client-service-detail",
   components: {},
-  data(){
+  data() {
     return {
-      service: Service
+      currentService: Service,
+      serviceApiService: new ServiceApiService(),
+    };
+  },
+  methods: {
+    buildServiceFromResponseData(service) {
+      return new Service(
+          service.id,
+          service.category_id,
+          service.company_id,
+          service.service_name,
+          service.description,
+          service.price,
+          service.duration,
+          service.rating,
+          service.sales,
+          service.created_at,
+          service.img
+      )
+    },
+    getServiceId() {
+      return this.$route.params.id;
+    },
+    async getServiceById(id){
+      const response = await this.serviceApiService.getServiceById(id);
+      this.currentService = this.buildServiceFromResponseData(response.data);
+    },
+    getCurrentService(){
+      let serviceId = this.getServiceId();
+      if (serviceId) {
+        this.getServiceById(serviceId);
+      }
+    },
+    redirectToReservations(serviceId){
+      this.$router.push({name: 'Reservations', params: {id: serviceId}});
     }
   },
   created() {
-    const serviceId = this.$route.params.id;
-    const serviceApi = new ServicesApiService();
-    serviceApi.getService(serviceId)
-        .then(response => {
-          this.service = response.data;
-          console.log(this.service);
-        })
-        .catch(error => {
-          console.error("There was azn error fetching the service:", error);
-        });
+    this.getCurrentService();
   }
-}
+};
 </script>
-<template>
-  <div style="margin-top: 10rem; background-color: #1a1a1a; padding: 5rem; border-radius: 1rem;" >
-    <div style="display: flex; gap: 1rem">
-      <div>
-        <img :src="service.img" alt="Service Image" />
-      </div>
-      <div>
-        <h1> {{ service.service_name }}</h1>
-        <p> {{ service.description }} </p>
-        <p> Price : {{ service.price }} </p>
-        <p> Duration : {{ service.duration }} </p>
-      </div>
 
+<template>
+  <div style="background-color: #ffffff;" class="flex flex-row m-3 mx-8 border-round-3xl">
+    <div class="flex align-items-center justify-content-center m-8 fadein animation-duration-1000">
+      <img :src="currentService.img" alt="Service Image" />
     </div>
-    <div class="mt-7">
-      <pv-button label="Book Now" class="w-full"/>
+    <div class="flex align-items-start justify-content-center m-8 text-left max-w-30rem">
+      <div>
+        <div>
+          <span class="text-7xl font-bold">{{currentService.service_name}}</span>
+        </div>
+        <div class="flex justify-content-between  ">
+          <div>
+            <span class="text-4xl font-bold"> PEN {{currentService.price}}</span>
+          </div>
+          <div class="flex align-items-center justify-content-center gap-2" >
+            <span class="text-xl"> {{currentService.rating}}</span>
+            <i class="pi pi-star-fill"/>
+          </div>
+        </div>
+        <div class="m-1">
+          <pv-button :label=" $t('clientServiceDetail.bookNow') " class="w-full"
+           @click="redirectToReservations(currentService.id)"/>
+        </div>
+        <div>
+          <pv-divider type="solid"/>
+        </div>
+        <div>
+          <span> Duration: {{currentService.duration}} mins </span>
+        </div>
+        <div >
+          <span> {{currentService.description}} </span>
+        </div>
+
+      </div>
     </div>
   </div>
 </template>

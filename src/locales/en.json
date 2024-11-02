@@ -2,8 +2,150 @@
   "toolbar": {
     "home": "Home",
     "services": "Services",
-    "schedule": "Schedule",
+    "schedule": "Appointments",
+    "myServices": "'My Services' History",
     "login": "Login",
-    "register": "Register"
+    "register": "Register",
+    "myServicesBussiness": "My Services"
+  },
+  "appointment": {
+    "title": "Title",
+    "date": "Date",
+    "time": "Time",
+    "place": "Place",
+    "noAppointments": "No appointments available for this user.",
+    "appointments": "Appointments"
+  },
+  "businessService": {
+    "edit": "Edit",
+    "delete": "Delete",
+    "noServices": "No services available."
+  },
+  "categoryFilter": {
+    "title": "Categories",
+    "filterButton": "Filter"
+  },
+  "clientService": {
+    "learnMore": "Learn More",
+    "price": "Price"
+  },
+  "clientServiceList": {
+    "title": "Services"
+  },
+  "createBusinessService": {
+    "title": "Create Your Service",
+    "serviceName": "Service Name",
+    "categories": "Categories",
+    "upload": "Upload",
+    "price": "Price",
+    "description": "Description",
+    "createService": "Create Service"
+  },
+  "createBusinessText": {
+    "workAtTheSpeed": "Work at the speed",
+    "gradualAccumulation": "The gradual accumulation of information about atomic and small-scale behaviour.",
+    "learnMore": "Learn More",
+    "nameYourService": "Name your service",
+    "selectCategory": "Select a category",
+    "setPrice": "Set a price for your service",
+    "addDescription": "Add a description for your service.",
+    "upload": "Upload"
+  },
+  "priceFilter": {
+    "filterByPrice": "Filter By Price",
+    "minValue": "Min Value",
+    "maxValue": "Max Value",
+    "filter": "Filter"
+  },
+  "businessServices": {
+    "ourServices": "Our Services",
+    "addService": "Add service"
+  },
+  "clientServiceDetail": {
+    "serviceDetails": "Service Details",
+    "price": "Price",
+    "description": "Description",
+    "duration": "Duration",
+    "bookNow": "Book Now"
+  },
+  "editService": {
+    "title": "Edit Service",
+    "serviceName": "Service Name",
+    "serviceCategory": "Category Service",
+    "serviceDuration": "Duration",
+    "servicePrice": "Price",
+    "serviceDescription": "Description",
+    "editButton": "Confirm Edition"
+  },
+  "servicesHome": {
+    "services": "Services",
+    "service_name": "Service Name",
+    "description": "Description",
+    "price": "Price",
+    "duration": "Duration",
+    "rating": "Rating",
+    "sales": "Sales",
+    "bestService": "Best Service"
+  },
+  "companyDetail": {
+    "name": "Name",
+    "ruc": "RUC",
+    "email": "Email",
+    "website": "Website",
+    "description": "Description",
+    "averageRating": "Average Rating",
+    "companyNotFound": "Company not found.",
+    "bestCompany": "Best Companies"
+  },
+  "bestService": {
+    "title": "Best Service",
+    "error": "No services available."
+  },
+  "serviceCategory": {
+    "title": "Service Categories"
+  },
+  "topRatedReviews": {
+    "title": "Best Reviews",
+    "rating": "Rating",
+    "date": "Date"
+  },
+  "historyCard": {
+    "noSchedule": "No schedule available",
+    "addReview": "Add Review",
+    "editReview": "Edit Review",
+    "deleteReview": "Delete Review"
+  },
+  "historyPage": {
+    "completedAppointments": "Completed Appointments"
+  },
+  "businessAppointment": {
+    "appointment": "Appointment",
+    "date": "Date",
+    "time": "Time",
+    "service": "Service",
+    "description": "Description",
+    "price": "Price",
+    "duration": "Duration",
+    "rating": "Rating",
+    "user": "User",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "minutes": "mins",
+    "cancelAppointment": "Cancel Appointment"
+  },
+  "businessAppointmentList": {
+    "noUsersAvailable": "No users available",
+    "userDetails": "User Details",
+    "name": "Name",
+    "email": "Email",
+    "phone": "Phone",
+    "address": "Address",
+    "confirmCancellation": "Confirm Cancellation",
+    "confirmCancellationMessage": "Are you sure you want to cancel this appointment?",
+    "yesCancel": "Yes, Cancel",
+    "noGoBack": "No, Go Back",
+    "close": "Close"
   }
+
 }

@@ -3,7 +3,149 @@
     "home": "Inicio",
     "services": "Servicios",
     "schedule": "Agenda",
+    "myServices": "Historial de 'Mis Servicios'",
     "login": "Iniciar Sesión",
-    "register": "Registrarse"
+    "register": "Registrarse",
+    "myServicesBussiness": "Mis Servicios"
+
+  },
+  "appointment": {
+    "title": "Título",
+    "date": "Fecha",
+    "time": "Hora",
+    "place": "Lugar",
+    "noAppointments": "No hay citas disponibles para este usuario.",
+    "appointments": "Citas"
+  },
+  "businessService": {
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "noServices": "No hay servicios disponibles."
+  },
+  "categoryFilter": {
+    "title": "Categorías",
+    "filterButton": "Filtrar"
+  },
+  "clientService": {
+    "learnMore": "Más información",
+    "price": "Precio"
+  },
+  "clientServiceList": {
+    "title": "Servicios"
+  },
+  "createBusinessService": {
+    "title": "Crea tu servicio",
+    "serviceName": "Nombre del Servicio",
+    "categories": "Categorías",
+    "upload": "Subir",
+    "price": "Precio",
+    "description": "Descripción",
+    "createService": "Crear Servicio"
+  },
+  "createBusinessText": {
+    "workAtTheSpeed": "Trabaja a la velocidad",
+    "gradualAccumulation": "La acumulación gradual de información sobre el comportamiento atómico y a pequeña escala.",
+    "learnMore": "Más información",
+    "nameYourService": "Nombra tu servicio",
+    "selectCategory": "Selecciona una categoría",
+    "setPrice": "Establece un precio para tu servicio",
+    "addDescription": "Añade una descripción para tu servicio.",
+    "upload": "Subir"
+  },
+  "priceFilter": {
+    "filterByPrice": "Filtrar por precio",
+    "minValue": "Valor mínimo",
+    "maxValue": "Valor máximo",
+    "filter": "Filtrar"
+  },
+  "businessServices": {
+    "ourServices": "Nuestros Servicios",
+    "addService": "Agregar servicio"
+  },
+  "clientServiceDetail": {
+    "serviceDetails": "Detalles del Servicio",
+    "price": "Precio",
+    "description": "Descripción",
+    "duration": "Duración",
+    "bookNow": "Reservar Ahora"
+  },
+  "editService": {
+    "title": "Editar Servicio",
+    "serviceName": "Nombre del Servicio",
+    "serviceCategory": "Categoría del Servicio",
+    "serviceDuration": "Duración",
+    "servicePrice": "Precio",
+    "serviceDescription": "Descripción",
+    "editButton": "Confirmar Edición"
+  },
+  "servicesHome": {
+    "services": "Servicios",
+    "service_name": "Nombre del Servicio",
+    "description": "Descripción",
+    "price": "Precio",
+    "duration": "Duración",
+    "rating": "Calificación",
+    "sales": "Ventas",
+    "bestService": "Mejor Servicio"
+  },
+  "companyDetail": {
+    "name": "Nombre",
+    "ruc": "RUC",
+    "email": "Correo Electrónico",
+    "website": "Sitio Web",
+    "description": "Descripción",
+    "averageRating": "Calificación Promedio",
+    "companyNotFound": "No se encontró la empresa.",
+    "bestCompany": "Mejores Empresas"
+  },
+  "bestService": {
+    "title": "Mejor Servicio",
+    "error": "No hay servicios disponibles."
+  },
+  "serviceCategory": {
+    "title": "Categorías de Servicios"
+  },
+  "topRatedReviews": {
+    "title": "Mejores Reseñas",
+    "rating": "Calificación",
+    "date": "Fecha"
+  },
+  "historyCard": {
+    "noSchedule": "No hay horarios disponibles",
+    "addReview": "Agregar Reseña",
+    "editReview": "Editar Reseña",
+    "deleteReview": "Eliminar Reseña"
+  },
+  "historyPage": {
+    "completedAppointments": "\u200E \u200E \u200E \u200E \u200E  \u200E Citas Completadas\u200E \u200E \u200E \u200E \u200E \u200E \u200E \u200E \u200E \u200E "
+  },
+  "businessAppointment": {
+    "appointment": "Cita",
+    "date": "Fecha",
+    "time": "Hora",
+    "service": "Servicio",
+    "description": "Descripción",
+    "price": "Precio",
+    "duration": "Duración",
+    "rating": "Calificación",
+    "user": "Usuario",
+    "email": "Correo Electrónico",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "minutes": "minutos",
+    "cancelAppointment": "Cancelar Cita"
+  },
+  "businessAppointmentList": {
+    "noUsersAvailable": "No hay usuarios disponibles",
+    "userDetails": "Detalles del Usuario",
+    "name": "Nombre",
+    "email": "Correo Electrónico",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "confirmCancellation": "Confirmar Cancelación",
+    "confirmCancellationMessage": "¿Está seguro de que desea cancelar esta cita?",
+    "yesCancel": "Sí, Cancelar",
+    "noGoBack": "No, Regresar",
+    "close": "Cerrar"
   }
 }

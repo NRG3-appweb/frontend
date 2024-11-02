@@ -1,5 +1,5 @@
 <script>
-import AppointmentService from "../../schedule-management/pages/appointment-service.component.vue";
+import AppointmentService from "../../appointment-management/pages/appointment-service.component.vue";
 
 export default {
   name: "schedule",
