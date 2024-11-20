@@ -34,7 +34,7 @@ export default {
   background-color: white;
   width: 100%;
   margin: 0 auto;
-  padding: 20px;
+  padding: 10px 20px;
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
@@ -43,13 +43,13 @@ export default {
   display: flex;
   justify-content: center;
   align-items: flex-start;
-  padding-bottom: 40px;
+  padding-bottom: 5px;
 }
 
 .title {
   text-align: left;
-  margin-top: 50px;
-  margin-bottom: 1px;
+  margin-top: 20px;
+  margin-bottom: 10px;
   color: black;
 }
 </style>

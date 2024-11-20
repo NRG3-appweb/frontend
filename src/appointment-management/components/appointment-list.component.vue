@@ -1,9 +1,10 @@
 <script>
 import AppointmentItem from './appointment-item.component.vue';
-import { Appointment } from "../model/appointment.entity.js";
-import { BusinessAppointmentApiService } from "../services/business-appointment-api.service.js";
-import { AppointmentApiService } from "../services/appointment-api.service.js";
-import { ServiceApiService } from "../../service-management/services/service-api.service.js";
+import {Appointment} from "../model/appointment.entity.js";
+import {BusinessAppointmentApiService} from "../services/business-appointment-api.service.js";
+import {AppointmentApiService} from "../services/appointment-api.service.js";
+import {ServiceApiService} from "../../service-management/services/service-api.service.js";
+import {defaultClientId} from "../../router/index.js";
 
 export default {
   name: "appointment-list",
@@ -23,35 +24,52 @@ export default {
   methods: {
     async fetchPendingAppointments() {
       try {
-        const appointments = await this.appointmentApiService.getAppointments();
-
+        const appointments = await this.appointmentApiService.getAppointmentsByUserId(defaultClientId);
         const filteredAppointments = appointments.filter(
-            appointment => appointment.userId === this.userId && appointment.status === "PENDING"
+            appointment => {
+              return  appointment.status === "PENDING";
+            }
         );
 
         const appointmentDetailsPromises = filteredAppointments.map(async appointment => {
-          const serviceResponse = await this.serviceApiService.getServiceById(appointment.serviceId);
-          const companyResponse = await this.businessApiService.getCompanyById(appointment.companyId);
+          let serviceName = "Unknown Service";
+          let companyName = "Unknown Company";
+
+          if (appointment.service && appointment.service.id) {
+            const serviceResponse = await this.serviceApiService.getServiceById(appointment.service.id);
+            serviceName = serviceResponse.data ? serviceResponse.data.serviceName : "Unknown Service";
+          } else {
+            console.warn(`Missing serviceId for appointment ID: ${appointment.id}`);
+          }
+
+          if (appointment.company && appointment.company.id) {
+            const companyResponse = await this.businessApiService.getCompanyById(appointment.company.id);
+            companyName = companyResponse ? companyResponse.name : "Unknown Company";
+          } else {
+            console.warn(`Missing companyId for appointment ID: ${appointment.id}`);
+          }
 
           const newAppointment = new Appointment(
               appointment.id,
-              appointment.userId,
-              appointment.serviceId,
-              appointment.companyId,
+              appointment.user,
+              appointment.service,
+              appointment.company,
               appointment.reservationDate,
               appointment.status,
               appointment.date,
-              appointment.time
+              appointment.time,
+              appointment.requirements
           );
-          newAppointment.serviceName = serviceResponse.data ? serviceResponse.data.service_name : 'Unknown Service';
-          newAppointment.companyName = companyResponse ? companyResponse.name : 'Unknown Company';
+          newAppointment.serviceName = serviceName;
+          newAppointment.companyName = companyName;
 
           return newAppointment;
         });
 
         this.pendingAppointments = await Promise.all(appointmentDetailsPromises);
+        console.log('Pending Appointments:', this.pendingAppointments);
       } catch (error) {
-        console.error('Error fetching pending appointments:', error);
+        console.error("Error fetching pending appointments:", error);
       }
     },
 
@@ -107,8 +125,8 @@ export default {
     <div v-if="dialogVisible" class="dialog-overlay" @click="closeAppointmentDialog">
       <div class="dialog-card" @click.stop>
         <h3>Appointment Details</h3>
-        <p><strong>Service:</strong> {{ selectedAppointment?.serviceName }}</p>
-        <p><strong>Company:</strong> {{ selectedAppointment?.companyName }}</p>
+        <p><strong>Service:</strong> {{ selectedAppointment?.service.serviceName }}</p>
+        <p><strong>Company:</strong> {{ selectedAppointment?.company.name }}</p>
         <p><strong>Date:</strong> {{ selectedAppointment?.date }}</p>
         <p><strong>Time:</strong> {{ selectedAppointment?.time }}</p>
         <button @click="closeAppointmentDialog" class="close-button">Close</button>
@@ -206,10 +224,10 @@ export default {
   background-color: red;
   color: #ffffff; /* Color al pasar el cursor */
 }
+
 @media (min-width: 768px) {
   .appointment-list-container {
     flex-direction: row;
   }
 }
-
 </style>

@@ -1,18 +1,19 @@
 <script>
-import BusinessAppointmentItem from './business-appointment-item.component.vue';
-import { BusinessAppointmentApiService } from "../services/business-appointment-api.service.js";
-import { AppointmentApiService } from "../services/appointment-api.service.js";
-import { ServiceApiService } from "../../service-management/services/service-api.service.js";
-import {Appointment} from "../model/appointment.entity.js";
+import AppointmentItem from './appointment-item.component.vue';
+import {BusinessAppointmentApiService} from "../services/business-appointment-api.service.js";
+import {AppointmentApiService} from "../services/appointment-api.service.js";
+import {ServiceApiService} from "../../service-management/services/service-api.service.js";
+import {defaultBusinessId} from "../../router/index.js";
+import BusinessAppointmentItem from "./business-appointment-item.component.vue";
 
 export default {
-  name: "business-appointment-list",
-  components: { BusinessAppointmentItem },
+  name: "appointment-list",
+  components: { BusinessAppointmentItem, AppointmentItem },
   data() {
     return {
-      userList: [],
-      companyId: 1,
-      selectedUser: null,
+      pendingAppointments: [],
+      userId: 1,
+      selectedAppointment: null,
       dialogVisible: false,
       cancelDialogVisible: false,
       businessApiService: new BusinessAppointmentApiService(),
@@ -21,124 +22,84 @@ export default {
     };
   },
   methods: {
-    async fetchUsers() {
+    async fetchPendingAppointments() {
       try {
-        const appointments = await this.appointmentApiService.getAppointments();
-
-        const filteredAppointments = appointments.filter(
-            appointment => appointment.companyId === this.companyId && appointment.status === "PENDING"
+        const response = await this.appointmentApiService.getAppointmentsByCompanyId(defaultBusinessId);
+        this.pendingAppointments = response.data.filter(
+            appointment => appointment.status === "PENDING"
         );
-
-        const userDetailsPromises = filteredAppointments.map(async appointment => {
-          const serviceResponse = await this.serviceApiService.getServiceById(appointment.serviceId);
-          const companyResponse = await this.businessApiService.getCompanyById(appointment.companyId);
-          const userResponse = await this.businessApiService.getUserById(appointment.userId);
-
-          const newAppointment = new Appointment(
-              appointment.id,
-              appointment.userId,
-              appointment.serviceId,
-              appointment.companyId,
-              appointment.reservationDate,
-              appointment.status,
-              appointment.date,
-              appointment.time
-          );
-
-          newAppointment.serviceName = serviceResponse.data ? serviceResponse.data.service_name : 'Unknown Service';
-          newAppointment.description = serviceResponse.data ? serviceResponse.data.description : 'No Description';
-          newAppointment.price = serviceResponse.data ? serviceResponse.data.price : 0;
-          newAppointment.duration = serviceResponse.data ? serviceResponse.data.duration : 0;
-          newAppointment.rating = serviceResponse.data ? serviceResponse.data.rating : 0;
-          newAppointment.img = serviceResponse.data ? serviceResponse.data.img : '';
-
-          newAppointment.companyName = companyResponse ? companyResponse.name : 'Unknown Company';
-
-          newAppointment.userName = userResponse ? userResponse.name : 'Unknown User';
-          newAppointment.userEmail = userResponse ? userResponse.email : '';
-          newAppointment.userPhone = userResponse ? userResponse.phone : '';
-          newAppointment.userAddress = userResponse ? userResponse.address : '';
-
-          return newAppointment;
-        });
-
-        this.userList = await Promise.all(userDetailsPromises);
       } catch (error) {
-        console.error("Error loading users:", error);
+        console.error("Error fetching pending appointments:", error);
       }
     },
 
-    async handleCancelAppointment(userId) {
+    async handleCancelAppointment(appointmentId) {
       try {
-        await this.appointmentApiService.cancelAppointment(userId);
-        this.userList = this.userList.filter(user => user.id !== userId);
+        await this.appointmentApiService.cancelAppointment(appointmentId);
+        this.pendingAppointments = this.pendingAppointments.filter(appointment => appointment.id !== appointmentId);
         this.cancelDialogVisible = false;
       } catch (error) {
         console.error('Error canceling appointment:', error);
       }
     },
 
-    openCancelDialog(user) {
-      this.selectedUser = user;
+    openAppointmentDialog(appointment) {
+      this.selectedAppointment = appointment;
+      this.dialogVisible = true;
+    },
+
+    closeAppointmentDialog() {
+      this.dialogVisible = false;
+      this.selectedAppointment = null;
+    },
+
+    openCancelDialog(appointment) {
+      this.selectedAppointment = appointment;
       this.cancelDialogVisible = true;
     },
 
     closeCancelDialog() {
       this.cancelDialogVisible = false;
-      this.selectedUser = null;
-    },
-
-    openUserDialog(user) {
-      this.selectedUser = {
-        name: user.userName,
-        email: user.userEmail,
-        phone: user.userPhone,
-        address: user.userAddress
-      };
-      this.dialogVisible = true;
-    },
-
-    closeUserDialog() {
-      this.dialogVisible = false;
-      this.selectedUser = null;
-    },
+      this.selectedAppointment = null;
+    }
   },
   created() {
-    this.fetchUsers();
+    this.fetchPendingAppointments();
   }
 };
 </script>
 
+
 <template>
-  <div class="user-list-container">
-    <div v-if="userList.length === 0">
-      <p>{{ $t('businessAppointmentList.noUsersAvailable') }}</p>
+  <div class="appointment-list-container">
+    <div v-if="pendingAppointments.length === 0">
+      <p>No appointments available</p>
     </div>
-    <div v-for="user in userList"
-         :key="user.id"
-         class="user-item-container"
-         @click="openUserDialog(user)">
-      <business-appointment-item :user="user"
-                                 @open-cancel-dialog="openCancelDialog"/>
+    <div v-for="appointment in pendingAppointments"
+         :key="appointment.id"
+         class="appointment-item-container">
+      <business-appointment-item :appointment="appointment"
+                                 @open-cancel-dialog="openCancelDialog"
+                                 @open-appointment-dialog="openAppointmentDialog"/>
     </div>
 
-    <div v-if="dialogVisible" class="dialog-overlay" @click="closeUserDialog">
+    <div v-if="dialogVisible" class="dialog-overlay" @click="closeAppointmentDialog">
       <div class="dialog-card" @click.stop>
-        <h3>{{ $t('businessAppointmentList.userDetails') }}</h3>
-        <p><strong>{{ $t('businessAppointmentList.name') }}:</strong> {{ selectedUser?.name }}</p>
-        <p><strong>{{ $t('businessAppointmentList.email') }}:</strong> {{ selectedUser?.email }}</p>
-        <p><strong>{{ $t('businessAppointmentList.phone') }}:</strong> {{ selectedUser?.phone }}</p>
-        <p><strong>{{ $t('businessAppointmentList.address') }}:</strong> {{ selectedUser?.address }}</p>
-        <button @click="closeUserDialog" class="close-button">{{ $t('businessAppointmentList.close') }}</button>
+        <h3>Appointment Details</h3>
+        <p><strong>Service:</strong> {{ selectedAppointment?.serviceName }}</p>
+        <p><strong>Company:</strong> {{ selectedAppointment?.companyName }}</p>
+        <p><strong>Date:</strong> {{ selectedAppointment?.date }}</p>
+        <p><strong>Time:</strong> {{ selectedAppointment?.time }}</p>
+        <button @click="closeAppointmentDialog" class="close-button">Close</button>
       </div>
     </div>
 
     <div v-if="cancelDialogVisible" class="dialog-overlay" @click="closeCancelDialog">
       <div class="dialog-card" @click.stop>
-        <h3>{{ $t('businessAppointmentList.confirmCancellation') }}</h3>
-        <p>{{ $t('businessAppointmentList.confirmCancellationMessage') }}</p>
-        <button @click="handleCancelAppointment(selectedUser.id)" class="confirm-button">{{ $t('businessAppointmentList.yesCancel') }}</button>
-        <button @click="closeCancelDialog" class="cancel-button">{{ $t('businessAppointmentList.noGoBack') }}</button>
+        <h3>Confirm Cancellation</h3>
+        <p>Are you sure you want to cancel this appointment?</p>
+        <button @click="handleCancelAppointment(selectedAppointment.id)" class="confirm-button">Yes, Cancel</button>
+        <button @click="closeCancelDialog" class="cancel-button">No, Go Back</button>
       </div>
     </div>
   </div>
@@ -146,15 +107,14 @@ export default {
 
 
 
-
 <style scoped>
-.user-list-container {
+.appointment-list-container {
   display: block;
   width: 100%;
   color: black;
 }
 
-.user-item-container {
+.appointment-item-container {
   width: 100%;
   margin-bottom: 20px;
   cursor: pointer;
@@ -226,5 +186,11 @@ export default {
 .dialog-card .close-button:hover {
   background-color: red;
   color: #ffffff; /* Color al pasar el cursor */
+}
+
+@media (min-width: 768px) {
+  .appointment-list-container {
+    flex-direction: row;
+  }
 }
 </style>

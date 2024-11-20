@@ -18,13 +18,15 @@ export default {
         const sortedReviews = reviews.sort((a, b) => b.rating - a.rating);
         const topReviews = sortedReviews.slice(0, 5);
 
-        this.topRatedReviews = await Promise.all(
+        this.topRatedReviews = topReviews;
+
+       /* this.topRatedReviews = await Promise.all(
             topReviews.map(async (review) => {
               const userResponse = await reviewApiService.getUserById(review.userId);
               const user = userResponse.data[0];
               return { ...review, userName: user.name };
             })
-        );
+        );*/
       } catch (error) {
         console.error("Error loading top rated reviews:", error);
       }
@@ -44,7 +46,7 @@ export default {
         <pv-card class="p-shadow-4">
           <template #title>
             <div class="p-d-flex p-jc-center content-text">
-              <h3>{{ review.userName }}</h3>
+              <h3>{{ review.userId }}</h3>
             </div>
           </template>
 
@@ -74,7 +76,7 @@ export default {
   justify-content: center;
 }
 .p-shadow-4 {
-  background: #D9D9D9;
+  background: #FFFFFF;
 }
 .review-card {
   width: 20rem;
@@ -83,11 +85,11 @@ export default {
   margin: 1rem;
 }
 .content-text {
-  color: #37123C;
+  color: #000000;
 }
 .p-text-center {
   text-align: center;
-  color: #37123C;
+  color: #000000;
   margin-bottom: 16px;
 }
 .title {

@@ -1,6 +1,7 @@
 <script>
-import {defaultBusinessId} from "../../router/index.js";
+import {defaultBusinessId, defaultClientId} from "../../router/index.js";
 import {ServiceApiService} from "../services/service-api.service.js";
+import {CategoryApiService} from "../services/category-api.service.js";
 
 export default {
   name: "create-business-service",
@@ -10,11 +11,7 @@ export default {
       price: null,
       description: null,
       selectedCategory: null,
-      categories: [
-        {name: '1', cname: '1'},
-        {name: '2', cname: '2'},
-        {name: '3', cname: '3'}
-      ]
+      categories: []
     }
   },
   methods: {
@@ -31,35 +28,49 @@ export default {
     },
     async createService() {
       const serviceData = {
-        category_id: this.selectedCategory ? parseInt(this.selectedCategory.cname) : null,
-        company_id: defaultBusinessId,
-        service_name: this.serviceName,
+        companyId: defaultBusinessId,
+        categoryId: this.selectedCategory ? parseInt(this.selectedCategory.name) : null,
+        name: this.serviceName,
         description: this.description,
         price: this.price,
         duration: this.getRandomInt(40, 120),
-        rating: 0,
-        sales: 0,
-        created_at: new Date().toISOString(),
-        img: "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp"
+        imageUrl: "https://res.cloudinary.com/dbdoazcrx/image/upload/v1727333993/ulxogsmo1ynfnaxxmxiv.webp"
       };
       try {
         const serviceApiService = new ServiceApiService();
+        console.log('Service Data:', serviceData);
         const response = await serviceApiService.createService(serviceData);
         this.$toast.add({
           severity: 'success',
           summary: 'Service Created',
-          detail: 'Your service has been created successfully.',
+          detail: 'Your services has been created successfully.',
           life: 3000
         });
+        this.$router.push({name: 'BusinessMyServices' , params: {id: defaultClientId}});
       } catch (error) {
         this.$toast.add({
           severity: 'error',
           summary: 'Error',
-          detail: 'There was an error creating the service.',
+          detail: 'There was an error creating the services.',
           life: 3000
         });
       }
-    }
+    },
+    async fetchCategories() {
+      const categoriesApiService = new CategoryApiService();
+      try{
+        let response = await categoriesApiService.getCategories();
+        this.categories = response.data.map(category => ({
+          cname: category.name,
+          name: category.id
+        }));
+      }catch (error){
+        console.error('Error fetching categories:', error);
+      }
+    },
+  },
+  created() {
+    this.fetchCategories()
   }
 }
 </script>

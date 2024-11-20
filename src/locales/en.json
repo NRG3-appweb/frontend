@@ -79,7 +79,7 @@
   },
   "servicesHome": {
     "services": "Services",
-    "service_name": "Service Name",
+    "name": "Service Name",
     "description": "Description",
     "price": "Price",
     "duration": "Duration",

@@ -19,13 +19,15 @@ export default {
         const categoriesResponse = await categoryApiService.getCategories();
         this.categories = categoriesResponse.data;
 
+
         const servicesResponse = await serviceApiService.getServices();
         const allServices = servicesResponse.data;
 
         for (const category of this.categories) {
-          this.servicesByCategory[category.id] = allServices.filter(
-              (service) => service.category_id === category.id
+          const servicesForCategory = allServices.filter(
+              (service) => service.category.id === category.id
           );
+          this.servicesByCategory[category.id] = servicesForCategory;
         }
       } catch (error) {
         console.error("Error loading categories or services: ", error);
@@ -43,7 +45,7 @@ export default {
     <h2 class="p-text-center title">{{ $t('serviceCategory.title') }}</h2>
     <div class="p-m-4">
       <div v-for="category in categories" :key="category.id" class="category-container p-mb-4">
-        <h2 class="p-text-center">{{ category.category_name }}</h2>
+        <h2 class="p-text-center">{{ category.name }}</h2>
         <div class="services-container p-d-flex" ref="servicesContainer{{ category.id }}">
           <pv-card
               v-for="service in servicesByCategory[category.id]"
@@ -52,12 +54,12 @@ export default {
           >
             <template #header>
               <div style="padding: 10px">
-                <img alt="service image" :src="service.img" class="service-image" />
+                <img alt="service image" :src="service.imgUrl" class="service-image" />
               </div>
             </template>
             <template #title>
               <div class="content-text">
-                {{ service.service_name }}
+                {{ service.name }}
               </div>
             </template>
             <template #content>

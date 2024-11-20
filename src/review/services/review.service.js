@@ -1,4 +1,3 @@
-// src/review/services/review.service.js
 import http from "../../shared/services/http-common.js";
 import { ServiceApiService } from "../../service-management/services/service-api.service.js";
 import {Appointment} from "../../appointment-management/model/appointment.entity.js";
@@ -6,31 +5,39 @@ export class ReviewApiService extends ServiceApiService {
     constructor() {
         super();
     }
-    getReview(){
-        return http.get('/reviews');
+
+    async getReviewByAppointmentId(appointmentId) {
+        return http.get(`/reviews/appointment/${appointmentId}`);
     }
 
-
-    getReviewByReservationId(appointmentId) {
-        return http.get(`/reviews?appointmentId=${appointmentId}`);
+    async getReviewByCompanyId(companyId) {
+        return http.get(`/reviews/company/${companyId}`);
     }
 
-    deleteReview(reviewId) {
+    async getReviewByUserId(userId) {
+        return http.get(`/reviews/user/${userId}`);
+    }
+    async getReviewById(reviewId) {
+        return http.get(`/reviews/${reviewId}`);
+    }
+
+    async deleteReview(reviewId) {
         return http.delete(`/reviews/${reviewId}`);
     }
 
-    createReview(reviewData) {
+    async createReview(reviewData) {
         return http.post('/reviews', reviewData);
     }
-    updateReview(reviewId, reviewData) {
+    async updateReview(reviewId, reviewData) {
         return http.put(`/reviews/${reviewId}`, reviewData);
     }
     getAppointmentById(appointmentId) {
         return http.get(`/appointments/${appointmentId}`);
     }
-
-    getUserById(userId) {
-        return http.get(`/users?id=${userId}`);
+    getReviewByAppointmentId(appointmentId) {
+        return http.get(`/reviews?appointmentId=${appointmentId}`);
     }
-
+    getReviewsByCompanyId(companyId) {
+        return http.get(`/reviews/company/${companyId}`);
+    }
 }

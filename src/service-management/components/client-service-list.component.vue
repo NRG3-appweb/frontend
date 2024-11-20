@@ -18,7 +18,7 @@ export default {
 <template>
   <div>
     <h1>{{ $t('clientServiceList.title') }}</h1>
-    <div style="display: flex; flex-wrap: wrap; gap: 3rem;">
+    <div class="flex flex-wrap justify-content-around gap-5" >
       <service-item v-for="service in services"
                     :key="service.id"
                     :service="service"/>

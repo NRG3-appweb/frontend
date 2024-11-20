@@ -1,6 +1,6 @@
 <script>
 import {Service} from "../../shared/model/service.entity.js";
-import {Appointment} from "../model/appointment.entity.js";
+import {defaultClientId} from "../../router/index.js";
 
 export default {
   name: "appointment-form",
@@ -21,26 +21,24 @@ export default {
       nowDate = nowDate.toISOString();
       let bookingDate = this.date.toISOString();
       let bookingTime = `${this.time.getHours().toString().padStart(2, '0')}:${this.time.getMinutes().toString().padStart(2, '0')}`;
-      return new Appointment(
-          null,
-          1,
-          this.service.id,
-          this.service.company_id,
-          nowDate,
-          "PENDING",
-          bookingDate,
-          bookingTime,
-          this.requirements
-      );
-
+      return {
+        userId: defaultClientId,
+        serviceId: this.service.id,
+        companyId: this.service.company.id,
+        reservationDate: nowDate,
+        status: "PENDING",
+        date: bookingDate,
+        time: bookingTime,
+        requirements: this.requirements
+      };
     },
     emitBookingEvent(){
-      let appointment = this.buildAppointmentFromFormData();
-      this.$emit('booking-event', appointment);
+      let appointmentData = this.buildAppointmentFromFormData();
+      this.$emit('booking-event', appointmentData);
     },
     confirmBooking(){
       this.$confirm.require({
-        message: 'Are you sure u want to book ' + this.service.service_name + ' service ?',
+        message: 'Are you sure u want to book ' + this.service.name + ' services ?',
         header: 'Confirmation',
         icon: 'pi pi-calendar-clock',
         rejectProps: {

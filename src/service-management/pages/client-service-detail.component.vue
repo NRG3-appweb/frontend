@@ -17,14 +17,13 @@ export default {
           service.id,
           service.category_id,
           service.company_id,
-          service.service_name,
+          service.name,
           service.description,
           service.price,
           service.duration,
           service.rating,
           service.sales,
-          service.created_at,
-          service.img
+          service.imgUrl
       )
     },
     getServiceId() {
@@ -53,12 +52,12 @@ export default {
 <template>
   <div style="background-color: #ffffff;" class="flex flex-row m-3 mx-8 border-round-3xl">
     <div class="flex align-items-center justify-content-center m-8 fadein animation-duration-1000">
-      <img :src="currentService.img" alt="Service Image" class="service-image"/>
+      <img :src="currentService.imgUrl" alt="Service Image" class="service-image"/>
     </div>
     <div class="flex align-items-start justify-content-center m-8 text-left max-w-30rem">
       <div>
         <div>
-          <span class="text-7xl font-bold">{{currentService.service_name}}</span>
+          <span class="text-7xl font-bold">{{currentService.name}}</span>
         </div>
         <div class="flex justify-content-between  ">
           <div>

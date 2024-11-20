@@ -20,14 +20,16 @@ export default {
 <template>
   <pv-card style="width: 20rem; height: auto; overflow: hidden">
     <template #header>
-      <img alt="user header" :src="service.img" class="service-image" />
+      <img alt="user header" :src="service.imgUrl" class="service-image" />
     </template>
-    <template #title>{{ service.service_name }}</template>
+    <template #title>{{ service.name }}</template>
     <template #subtitle>{{ $t('clientService.price') }}: {{ service.price }}</template>
     <template #content>
-      <p class="m-0">
-        {{ service.description }}
-      </p>
+      <div style="min-height: 6rem">
+        <p class="m-0">
+          {{ service.description }}
+        </p>
+      </div>
     </template>
     <template #footer>
       <div class="flex gap-4 mt-1">

@@ -1,10 +1,10 @@
 <script setup>
-import { defineProps, ref, onMounted } from 'vue';
-import { useRouter } from 'vue-router';
-import { Appointment } from '../model/appointment.entity.js';
-import { Review } from '../../review/model/review.entity.js';
-import { ReviewApiService } from '../../review/services/review.service.js';
-import { HistoryApiService } from '../services/client-history.service.js';
+import {defineProps, ref, onMounted, watch } from 'vue';
+import {useRouter} from 'vue-router';
+import {Appointment} from '../model/appointment.entity.js';
+import {Review} from '../../review/model/review.entity.js';
+import {ReviewApiService} from '../../review/services/review.service.js';
+import {HistoryApiService} from '../services/client-history.service.js';
 
 const props = defineProps({
   appointment: {
@@ -21,18 +21,34 @@ const router = useRouter();
 const reviewApiService = new ReviewApiService();
 const historyApiService = new HistoryApiService();
 const serviceImage = ref('');
+const hasReview = ref(false);
 
 const fetchServiceDetails = async () => {
   try {
-    const service = await historyApiService.getServiceById(props.appointment.serviceId);
+    const service = await historyApiService.getServiceById(props.appointment.service.id);
     serviceImage.value = service.img;
   } catch (error) {
-    console.error('Error fetching service details:', error);
+    console.error('Error fetching services details:', error);
+  }
+};
+const checkReviewExists = async () => {
+  try {
+    const reviewData = await reviewApiService.getReviewByAppointmentId(props.appointment.id);
+    if (reviewData !== null) {
+      hasReview.value = true;
+    } else {
+      hasReview.value = false;
+    }
+  } catch (error) {
+    console.error('Error checking review existence:', error);
+    hasReview.value = false;
   }
 };
 
+
 onMounted(() => {
   fetchServiceDetails();
+  checkReviewExists();
 });
 
 const goToReviewPage = (appointmentId) => {
@@ -43,29 +59,36 @@ const deleteReview = async (reviewId) => {
   try {
     await reviewApiService.deleteReview(reviewId);
     props.appointment.review = null;
+    hasReview.value = false;
   } catch (error) {
     console.error('Error deleting review:', error);
   }
 };
+watch(() => props.review, (newReview) => {
+  hasReview.value = !!newReview;
+});
 </script>
 
 <template>
   <div class="history-card">
     <img v-if="serviceImage" :src="serviceImage" alt="Service Image" class="service-image"/>
     <div class="history-content">
-      <h3 class="service-name">{{ appointment.serviceName }}</h3>
-      <p class="company-name">{{ appointment.companyName }}</p>
+      <h3 class="service-name">{{ appointment.service.serviceName }}</h3>
+      <p class="company-name">{{ appointment.company.name }}</p>
       <p class="appointment-date" v-if="appointment.date">{{ appointment.date }}</p>
       <p class="appointment-date" v-else>{{ $t('historyCard.noSchedule') }}</p>
     </div>
     <div class="card-actions">
-      <button class="add-button" v-if="!review" @click="goToReviewPage(appointment.id)">{{
-          $t('historyCard.addReview')
-        }}
+      <button class="add-button" v-if="!hasReview" @click="goToReviewPage(appointment.id)">
+        {{ $t('historyCard.addReview') }}
       </button>
-      <div class="actions-buttons" v-if="review">
-        <button class="edit-button" @click="goToReviewPage(appointment.id)">{{ $t('historyCard.editReview') }}</button>
-        <button class="delete-button" @click="deleteReview(review.id)">{{ $t('historyCard.deleteReview') }}</button>
+      <div class="actions-buttons" v-if="hasReview">
+        <button class="edit-button" @click="goToReviewPage(appointment.id)">
+          {{ $t('historyCard.editReview') }}
+        </button>
+        <button class="delete-button" @click="deleteReview(review.id)">
+          {{ $t('historyCard.deleteReview') }}
+        </button>
       </div>
     </div>
   </div>

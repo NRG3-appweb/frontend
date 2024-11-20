@@ -19,16 +19,15 @@ export default {
         const response = await serviceApiService.getServicesByCompanyId(defaultBusinessId);
         this.services = response.data.map(service => new Service(
             service.id,
-            service.category_id,
-            service.company_id,
-            service.service_name,
+            service.company,
+            service.category,
+            service.name,
             service.description,
             service.price,
             service.duration,
             service.rating,
             service.sales,
-            service.created_at,
-            service.img
+            service.imgUrl
         ));
       } catch (error) {
         console.error('Error fetching services:', error);

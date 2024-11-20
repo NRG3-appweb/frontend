@@ -1,5 +1,6 @@
 <script>
 import { ServiceApiService } from "../../service-management/services/service-api.service.js";
+import { ReviewApiService } from "../../review/services/review.service.js";
 
 export default {
   name: "best-service",
@@ -7,18 +8,40 @@ export default {
   data() {
     return {
       services: [],
+      reviews: [],
       bestService: null,
     };
   },
   methods: {
     async fetchBestService() {
       const serviceApiService = new ServiceApiService();
+      const reviewApiService = new ReviewApiService();
       try {
         const servicesResponse = await serviceApiService.getServices();
+        const reviewsResponse = await reviewApiService.getReview();
+
         this.services = servicesResponse.data;
+        this.reviews = reviewsResponse.data;
 
         if (Array.isArray(this.services) && this.services.length > 0) {
-          const sortedServices = this.services.sort((a, b) => b.rating - a.rating);
+          const serviceRatings = {};
+
+          this.reviews.forEach((review) => {
+            const serviceName = review.appointment.serviceName;
+            if (!serviceRatings[serviceName]) {
+              serviceRatings[serviceName] = { totalRating: 0, count: 0 };
+            }
+            serviceRatings[serviceName].totalRating += review.rating;
+            serviceRatings[serviceName].count++;
+          });
+
+          const serviceAvgRatings = this.services.map((service) => {
+            const serviceName = service.name;
+            const ratingData = serviceRatings[serviceName] || { totalRating: 0, count: 0 };
+            const avgRating = ratingData.count > 0 ? ratingData.totalRating / ratingData.count : 0;
+            return { ...service, avgRating };
+          });
+          const sortedServices = serviceAvgRatings.sort((a, b) => b.avgRating - a.avgRating);
           this.bestService = sortedServices[0];
         }
       } catch (error) {
@@ -38,18 +61,18 @@ export default {
     <div v-if="bestService" class="best-service-content flex justify-content-center">
       <pv-card class="best-service-card p-shadow-2">
         <template #title>
-          <h2 class="service-title">{{ bestService.service_name }}</h2>
+          <h2 class="service-title">{{ bestService.name }}</h2>
         </template>
         <template #content>
           <div class="service-content flex">
             <div style="padding: 10px">
-              <img :src="bestService.img" alt="service image" class="service-image"/>
+              <img :src="bestService.imgUrl" alt="service image" class="service-image"/>
             </div>
             <div class="info-container">
               <p class="p-mt-2">{{ $t('servicesHome.price') }}: ${{ bestService.price }}</p>
               <p class="p-mt-2">{{ $t('servicesHome.duration') }}: {{ bestService.duration }} min</p>
               <p class="p-mt-2">{{ $t('servicesHome.sales') }}: {{ bestService.sales }}</p>
-              <p class="p-mt-2">{{ $t('servicesHome.rating') }}: {{ bestService.rating }}</p>
+              <p class="p-mt-2">{{ $t('servicesHome.rating') }}: {{ bestService.avgRating }}</p>
             </div>
           </div>
         </template>

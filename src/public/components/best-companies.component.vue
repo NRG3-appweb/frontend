@@ -1,49 +1,51 @@
 <script>
-import { ServiceApiService } from "../../service-management/services/service-api.service.js";
+import { CompanyDetailApiService } from "../../company-detail/services/company-detail-api.service.js";
+import { ReviewApiService } from "../../review/services/review.service.js";
 
 export default {
   name: "best-companies",
   data() {
     return {
       companies: [],
-      services: [],
+      reviews: [],
       topCompanies: [],
     };
   },
   methods: {
     async topCompany() {
-      const serviceApiService = new ServiceApiService();
-      try {
-        const servicesResponse = await serviceApiService.getServices();
-        const companiesResponse = await serviceApiService.getCompanies();
+      const companyApiService = new CompanyDetailApiService();
+      const reviewApiService = new ReviewApiService();
 
-        this.services = servicesResponse.data;
+      try {
+        const companiesResponse = await companyApiService.getCompanies();
+        const reviewsResponse = await reviewApiService.getReview();
+
+        this.reviews = reviewsResponse.data;
         this.companies = companiesResponse.data;
 
         const companyRatings = {};
 
-        this.services.forEach((service) => {
-          if (!companyRatings[service.company_id]) {
-            companyRatings[service.company_id] = { totalRating: 0, serviceCount: 0 };
+        this.reviews.forEach((review) => {
+          const companyName = review.appointment.companyName;
+          if (!companyRatings[companyName]) {
+            companyRatings[companyName] = { totalRating: 0, serviceCount: 0 };
           }
-
-          companyRatings[service.company_id].totalRating += service.rating;
-          companyRatings[service.company_id].serviceCount++;
+          companyRatings[companyName].totalRating += review.rating;
+          companyRatings[companyName].serviceCount++;
         });
 
-        const companyAvgRating = Object.keys(companyRatings).map((companyId) => {
-          const avgRating = companyRatings[companyId].totalRating / companyRatings[companyId].serviceCount;
-          return { companyId: parseInt(companyId), avgRating };
+        const companyAvgRating = Object.keys(companyRatings).map((companyName) => {
+          const avgRating = companyRatings[companyName].totalRating / companyRatings[companyName].serviceCount;
+          return { companyName, avgRating };
         });
 
-        const topCompanyIds = companyAvgRating
+
+        const topCompanyNames = companyAvgRating
             .sort((a, b) => b.avgRating - a.avgRating)
             .slice(0, 3)
-            .map((item) => item.companyId);
+            .map((item) => item.companyName);
 
-
-        this.topCompanies = this.companies.filter((company) => topCompanyIds.includes(company.id));
-
+        this.topCompanies = this.companies.filter((company) => topCompanyNames.includes(company.name));
       } catch (e) {
         console.error("Error loading services and companies:", e);
       }
@@ -67,7 +69,7 @@ export default {
         <pv-card class="company-card p-shadow-4">
           <template #title>
             <div class="p-d-flex p-jc-center">
-              <img :src="company.img" alt="Logo" class="company-logo"/>
+              <img :src="company.imgUrl" alt="Logo" class="company-logo"/>
             </div>
             <h3 class="p-mt-3">{{ company.name }}</h3>
           </template>

@@ -32,11 +32,12 @@ export default {
     <template #title>Categories</template>
     <template #content>
       <div class="card flex justify-center">
-        <div class="flex flex-column gap-2">
-          <div v-for="category in categories" :key="category.id" class="">
+        <div class="flex flex-column gap-2 ">
+          <div v-for="category in categories" :key="category.id"
+               class="justify-content-start flex align-items-center">
             <pv-checkbox v-model="selectedCategories"  name="category"
                          :value="category"/>
-            <label :for="category.id"> {{category.category_name}}</label>
+            <label :for="category.id"> {{category.name}}</label>
           </div>
         </div>
       </div>

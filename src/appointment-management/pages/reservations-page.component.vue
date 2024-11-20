@@ -26,16 +26,15 @@ export default {
     buildServiceFromResponseData(service) {
       return new Service(
           service.id,
-          service.category_id,
-          service.company_id,
-          service.service_name,
+          service.company,
+          service.categories,
+          service.name,
           service.description,
           service.price,
           service.duration,
           service.rating,
           service.sales,
-          service.created_at,
-          service.img
+          service.imgUrl
       )
     },
     async getBookingService(){

@@ -1,16 +1,51 @@
 <script>
+import {Appointment} from "../model/appointment.entity.js";
+import {ServiceApiService} from "../../service-management/services/service-api.service.js";
+import {Service} from "../../shared/model/service.entity.js";
+
 export default {
   name: 'business-appointment-item',
   props: {
-    user: {
-      type: Object,
+    appointment: {
+      type: Appointment,
       required: true
+    }
+  },
+  data() {
+    return {
+      service:{
+        type: Service
+      }
+    };
+  },
+  computed: {
+    formattedDate() {
+      return new Date(this.appointment.date).toLocaleDateString('en-CA');
     }
   },
   methods: {
     openCancelDialog() {
-      this.$emit('open-cancel-dialog', this.user);
+      this.$emit('open-cancel-dialog', this.appointment);
+    },
+    async fetchServiceImage() {
+      let serviceApiService = new ServiceApiService();
+      const response = await serviceApiService.getServiceById(this.appointment.service.id);
+      this.service = new Service(
+          response.data.id,
+          response.data.company,
+          response.data.category,
+          response.data.name,
+          response.data.description,
+          response.data.price,
+          response.data.duration,
+          response.data.rating,
+          response.data.sales,
+          response.data.imgUrl
+      );
     }
+  },
+  created() {
+    this.fetchServiceImage();
   }
 }
 </script>
@@ -18,32 +53,33 @@ export default {
 <template>
   <div class="user-card">
     <div class="user-content">
-      <img :src="user.img" alt="Service Image" class="user-image" />
+      <img :src="this.service.imgUrl" alt="Service Image" class="user-image" />
       <div class="user-details">
         <div class="appointment-info">
           <h3 class="section-title">{{ $t('businessAppointment.appointment') }}</h3>
-          <p><strong>{{ $t('businessAppointment.date') }}:</strong> {{ user.date }}</p>
-          <p><strong>{{ $t('businessAppointment.time') }}:</strong> {{ user.time }}</p>
+          <p><strong>{{ $t('businessAppointment.date') }}:</strong> {{ formattedDate }}</p>
+          <p><strong>{{ $t('businessAppointment.time') }}:</strong> {{ appointment.time }}</p>
         </div>
         <hr class="divider" />
         <div class="service-info">
-          <h3 class="section-title">{{ $t('businessAppointment.service') }}: {{ user.serviceName }}</h3>
-          <p><strong>{{ $t('businessAppointment.description') }}:</strong> {{ user.description }}</p>
-          <p><strong>{{ $t('businessAppointment.price') }}:</strong> ${{ user.price }}</p>
-          <p><strong>{{ $t('businessAppointment.duration') }}:</strong> {{ user.duration }} {{ $t('businessAppointment.minutes') }}</p>
-          <p><strong>{{ $t('businessAppointment.rating') }}:</strong> {{ user.rating }}</p>
+          <h3 class="section-title">{{ $t('businessAppointment.services') }}: {{ appointment.serviceName }}</h3>
+          <p><strong>{{ $t('businessAppointment.description') }}:</strong> {{ this.service.description }}</p>
+          <p><strong>{{ $t('businessAppointment.price') }}:</strong> ${{ this.service.price}}</p>
+          <p><strong>{{ $t('businessAppointment.duration') }}:</strong> {{ this.service.duration }} {{ $t('businessAppointment.minutes') }}</p>
         </div>
         <hr class="divider" />
         <div class="user-info">
-          <h3 class="section-title">{{ $t('businessAppointment.user') }}: {{ user.userName }}</h3>
-          <p><strong>{{ $t('businessAppointment.email') }}:</strong> {{ user.userEmail }}</p>
-          <p><strong>{{ $t('businessAppointment.phone') }}:</strong> {{ user.userPhone }}</p>
-          <p><strong>{{ $t('businessAppointment.address') }}:</strong> {{ user.userAddress }}</p>
-        </div>
-        <div class="button-container">
-          <button @click.stop="openCancelDialog" class="cancel-button">{{ $t('businessAppointment.cancelAppointment') }}</button>
+          <h3 class="section-title">{{ $t('businessAppointment.user') }}: {{ appointment.user.firstName }} {{appointment.user.lastName}}</h3>
+          <!--
+          <p><strong>{{ $t('businessAppointment.email') }}:</strong> {{ appointment.userEmail }}</p>
+          <p><strong>{{ $t('businessAppointment.phone') }}:</strong> {{ appointment.userPhone }}</p>
+          <p><strong>{{ $t('businessAppointment.address') }}:</strong> {{ appointment.userAddress }}</p>
+          -->
         </div>
       </div>
+    </div>
+    <div class="button-container">
+      <button @click.stop="openCancelDialog" class="cancel-button">{{ $t('businessAppointment.cancelAppointment') }}</button>
     </div>
   </div>
 </template>

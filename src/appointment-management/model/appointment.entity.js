@@ -2,9 +2,9 @@
 export class Appointment {
     constructor(
         id = 0,
-        userId = 0,
-        serviceId = 0,
-        companyId = 0,
+        user = { id: 0, firstName: '', lastName: '', dni: '' },
+        service = { id: 0, serviceName: '', price: 0 },
+        company = { id: 0, name: '' },
         reservationDate = '',
         status = '',
         date = '',
@@ -12,9 +12,9 @@ export class Appointment {
         requirements = ''
     ) {
         this.id = id;
-        this.userId = userId;
-        this.serviceId = serviceId;
-        this.companyId = companyId;
+        this.user = user;
+        this.service = service;
+        this.company = company;
         this.reservationDate = reservationDate;
         this.status = status;
         this.date = date;

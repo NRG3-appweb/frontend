@@ -8,5 +8,8 @@ export class CompanyDetailApiService{
     getCompanies(){
         return http.get('/companies');
     }
+    getCompaniesById(id) {
+        return http.get(`/companies/${id}`);
+    }
 
 }

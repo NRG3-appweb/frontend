@@ -30,7 +30,7 @@ export default {
       return categories.map(
           category=> new Category(
               category.id,
-              category.category_name,
+              category.name,
               category.description
           )
       );
@@ -39,16 +39,15 @@ export default {
       return service.map(
           service=> new Service(
               service.id,
-              service.category_id,
-              service.company_id,
-              service.service_name,
+              service.category,
+              service.company,
+              service.name,
               service.description,
               service.price,
               service.duration,
               service.rating,
               service.sales,
-              service.created_at,
-              service.img
+              service.imgUrl
           )
       );
 
@@ -96,19 +95,24 @@ export default {
 
 <template>
   <pv-toast/>
-  <div class="flex">
-    <div class="text-center p-4 max-w-50rem">
-      <category-filter v-model="selectedCategories" :categories="categories"/>
-      <price-filter
-          v-if="minValue != null && maxValue != null"
-          v-model="selectedRange"
-          :minServiceValue="minValue"
-          :maxServiceValue="maxValue"/>
-      <div class="m-3">
+  <div class="flex" >
+    <div class=""  >
+      <div class="my-3">
+        <category-filter v-model="selectedCategories" :categories="categories"/>
+      </div>
+      <div class="my-3">
+        <price-filter
+            v-if="minValue != null && maxValue != null"
+            v-model="selectedRange"
+            :minServiceValue="minValue"
+            :maxServiceValue="maxValue"/>
+      </div>
+      <div class="my-3">
         <pv-button label="Filter" class="w-full" raised @click="filterServices()"/>
       </div>
     </div>
-    <div class="text-center p-4 mx-4 w-auto">
+
+    <div class="text-center p-4 mx-4 w-full" >
       <service-list :services="filteredServices"/>
     </div>
   </div>
@@ -117,4 +121,17 @@ export default {
 </template>
 
 <style>
+#app {
+  padding: 2rem;
+  text-align: center;
+}
+
+body {
+  margin: 0;
+  display: block !important;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
 </style>
