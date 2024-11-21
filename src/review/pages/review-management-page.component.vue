@@ -9,16 +9,26 @@ const route = useRoute();
 const router = useRouter();
 const appointment = ref(null);
 const appointmentId = route.params.appointmentId;
-let review;
+let review = ref(null);
 const reviewApiService = new ReviewApiService();
 const appointmentApiService = new HistoryApiService();
 
 const fetchReviewAndAppointment = async () => {
   try {
     const appointmentResponse = await appointmentApiService.getAppointmentById(appointmentId);
-    const reviewResponse = await reviewApiService.getReviewByAppointmentId(appointmentId);
-    review.value = reviewResponse.data;
     appointment.value = appointmentResponse.data;
+
+    try {
+      const reviewResponse = await reviewApiService.getReviewByAppointmentId(appointmentId);
+      review.value = reviewResponse.data;
+    } catch (reviewError) {
+      if (reviewError.response && reviewError.response.status === 404) {
+        review.value = null;
+        console.warn('Review not found for appointment ID:', appointmentId);
+      } else {
+        throw reviewError;
+      }
+    }
   } catch (error) {
     console.error('Error fetching appointment:', error);
   }
@@ -26,18 +36,20 @@ const fetchReviewAndAppointment = async () => {
 
 const saveReview = async (reviewData) => {
   try {
-    if (review.value) {
+    if (review.value && review.value.id) {
       console.log('Updating review:', review.value.id);
-      console.log('Review Data:', reviewData);
       await reviewApiService.updateReview(review.value.id, reviewData);
     } else {
-      await reviewApiService.createReview({...reviewData, appointmentId});
+      console.log('Creating new review');
+      await reviewApiService.createReview(reviewData);
     }
-    await router.push({name: 'ClientMyServices'});
+    await router.push({ name: 'ClientMyServices' });
   } catch (error) {
     console.error('Error saving review:', error);
   }
 };
+
+
 
 onMounted(() => {
   fetchReviewAndAppointment();
