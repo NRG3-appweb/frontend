@@ -33,8 +33,6 @@ const saveReview = () => {
     imageUrl: imageUrl.value
   };
 
-  console.log('Review Data:', reviewData); // Log the review data
-
   emit('saveReview', reviewData);
   emit('reviewCreated', reviewData);
 };

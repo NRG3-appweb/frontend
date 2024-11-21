@@ -1,78 +1,86 @@
-<script setup>
-import {defineProps, ref, onMounted, watch} from 'vue';
-import {useRouter} from 'vue-router';
+<script>
 import {Appointment} from '../model/appointment.entity.js';
 import {Review} from '../../review/model/review.entity.js';
 import {ReviewApiService} from '../../review/services/review.service.js';
 import {HistoryApiService} from '../services/client-history.service.js';
-
-const props = defineProps({
-  appointment: {
-    type: Appointment,
-    required: true
+export default{
+  name: "history-item",
+  components: {},
+  props:{
+    appointment: {
+      type: Appointment,
+      required: true
+    }
   },
-  review: {
-    type: Review,
-    required: false
-  }
-});
-
-const router = useRouter();
-const reviewApiService = new ReviewApiService();
-const historyApiService = new HistoryApiService();
-const serviceImage = ref('');
-const hasReview = ref(false);
-const review = ref(props.review);
-
-const fetchServiceDetails = async () => {
-  try {
-    const service = await historyApiService.getServiceById(props.appointment.service.id);
-    serviceImage.value = service.img;
-  } catch (error) {
-    console.error('Error fetching services details:', error);
-  }
-};
-
-const checkReviewExists = async () => {
-  try {
-    const reviewData = await reviewApiService.getReviewByAppointmentId(props.appointment.id);
-    console.log('Review data:', reviewData);
-    hasReview.value = reviewData !== null;
-    if (reviewData) {
-      review.value = new Review(reviewData.data); // Ensure correct assignment
+  data() {
+    return {
+      review: {
+        type: Review,
+        required: false
+      },
+      serviceImage: "",
+      hasReview: false,
+      reviewApiService: new ReviewApiService(),
+      historyApiService: new HistoryApiService()
     }
-  } catch (error) {
-    console.error('Error checking review existence:', error);
-    hasReview.value = false;
-  }
-};
-
-onMounted(() => {
-  fetchServiceDetails();
-  checkReviewExists();
-});
-
-const goToReviewPage = (appointmentId) => {
-  router.push({name: 'ReviewManagementPage', params: {appointmentId}});
-};
-
-const deleteReview = async (reviewId) => {
-  try {
-    if (reviewId) {
-      await reviewApiService.deleteReview(reviewId);
-      props.appointment.review = null;
-    } else {
-      console.error('Review ID is undefined');
+  },
+  methods:{
+    goToReviewPage(appointmentId){
+      this.$router.push({name: 'ReviewManagementPage', params: {appointmentId}});
+    },
+    async fetchServiceDetails(){
+      try {
+        const service = await this.historyApiService.getServiceById(this.appointment.service.id);
+        this.serviceImage = service.img;
+      } catch (error) {
+        console.error('Error fetching services details:', error);
+      }
+    },
+    async deleteReview(reviewId) {
+      try {
+        if (reviewId) {
+          await this.reviewApiService.deleteReview(reviewId);
+          console.log('Review deleted successfully');
+        } else {
+          console.error('Review ID is undefined');
+        }
+      } catch (error) {
+        console.error('Error deleting review:', error);
+      }
+    },
+    async checkReviewExists() {
+      try {
+        const reviewData = await this.reviewApiService.getReviewByAppointmentId(this.appointment.id);
+        console.log('Review data:', reviewData);
+        this.hasReview = reviewData !== null;
+        if (reviewData) {
+          this.review = new Review(
+              reviewData.data.id,
+              reviewData.data.userId,
+              reviewData.data.appointment,
+              reviewData.data.rating,
+              reviewData.data.comments,
+              reviewData.data.date
+          )
+        }
+      } catch (error) {
+        console.error('Error checking review existence:', error);
+        this.hasReview = false;
+      }
     }
-  } catch (error) {
-    console.error('Error deleting review:', error);
-  }
-};
-
-watch(() => props.review, (newReview) => {
-  hasReview.value = !!newReview;
-  review.value = newReview;
-});
+  },
+  watch: {
+    review(newReview) {
+      this.hasReview = !!newReview;
+      this.review = newReview;
+    }
+  },
+  created() {
+    console.log('Appointment:', this.appointment);
+    this.fetchServiceDetails();
+    this.checkReviewExists()
+  },
+}
 </script>
 
 <template>
@@ -92,7 +100,7 @@ watch(() => props.review, (newReview) => {
         <button class="edit-button" @click="goToReviewPage(appointment.id)">
           {{ $t('historyCard.editReview') }}
         </button>
-        <button class="delete-button" @click="deleteReview(review.value.id)">
+        <button class="delete-button" @click="deleteReview(review.id.toString())">
           {{ $t('historyCard.deleteReview') }}
         </button>
       </div>
