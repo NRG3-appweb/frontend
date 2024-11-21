@@ -1,5 +1,5 @@
 <script setup>
-import {defineProps, ref, onMounted, watch } from 'vue';
+import {defineProps, ref, onMounted, watch} from 'vue';
 import {useRouter} from 'vue-router';
 import {Appointment} from '../model/appointment.entity.js';
 import {Review} from '../../review/model/review.entity.js';
@@ -22,6 +22,7 @@ const reviewApiService = new ReviewApiService();
 const historyApiService = new HistoryApiService();
 const serviceImage = ref('');
 const hasReview = ref(false);
+const review = ref(props.review);
 
 const fetchServiceDetails = async () => {
   try {
@@ -31,20 +32,20 @@ const fetchServiceDetails = async () => {
     console.error('Error fetching services details:', error);
   }
 };
+
 const checkReviewExists = async () => {
   try {
     const reviewData = await reviewApiService.getReviewByAppointmentId(props.appointment.id);
-    if (reviewData !== null) {
-      hasReview.value = true;
-    } else {
-      hasReview.value = false;
+    console.log('Review data:', reviewData);
+    hasReview.value = reviewData !== null;
+    if (reviewData) {
+      review.value = new Review(reviewData.data); // Ensure correct assignment
     }
   } catch (error) {
     console.error('Error checking review existence:', error);
     hasReview.value = false;
   }
 };
-
 
 onMounted(() => {
   fetchServiceDetails();
@@ -57,15 +58,20 @@ const goToReviewPage = (appointmentId) => {
 
 const deleteReview = async (reviewId) => {
   try {
-    await reviewApiService.deleteReview(reviewId);
-    props.appointment.review = null;
-    hasReview.value = false;
+    if (reviewId) {
+      await reviewApiService.deleteReview(reviewId);
+      props.appointment.review = null;
+    } else {
+      console.error('Review ID is undefined');
+    }
   } catch (error) {
     console.error('Error deleting review:', error);
   }
 };
+
 watch(() => props.review, (newReview) => {
   hasReview.value = !!newReview;
+  review.value = newReview;
 });
 </script>
 
@@ -86,7 +92,7 @@ watch(() => props.review, (newReview) => {
         <button class="edit-button" @click="goToReviewPage(appointment.id)">
           {{ $t('historyCard.editReview') }}
         </button>
-        <button class="delete-button" @click="deleteReview(review.id)">
+        <button class="delete-button" @click="deleteReview(review.value.id)">
           {{ $t('historyCard.deleteReview') }}
         </button>
       </div>

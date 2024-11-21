@@ -17,6 +17,7 @@ export default {
       appointmentApiService: new AppointmentApiService(),
       historyApiService: new HistoryApiService(),
       serviceApiService: new ServiceApiService(),
+      reviewApiService: new ReviewApiService()
     };
   },
   methods: {
@@ -46,8 +47,14 @@ export default {
           } else {
             console.warn(`Missing companyId for appointment ID: ${appointment.id}`);
           }
-       //   const reviewData = await ReviewApiService.getReviewByAppointmentId(appointment.id);
-       //   const review = reviewData.length > 0 ? new Review(reviewData[0]) : null;
+          const reviewData = await this.reviewApiService.getReviewByAppointmentId(appointment.id);
+          const review = reviewData ? new Review(reviewData) : null;
+
+          if (review) {
+            console.log(`Review ID for appointment ID ${appointment.id}:`, review.id);
+          } else {
+            console.log(`No review found for appointment ID ${appointment.id}`);
+          }
 
           const newAppointment = new Appointment(
               appointment.id,
@@ -62,6 +69,7 @@ export default {
           );
           newAppointment.service.serviceName = serviceName;
           newAppointment.company.name = companyName;
+          newAppointment.review = review;
 
           return newAppointment;
         });
@@ -86,18 +94,16 @@ export default {
   }
 };
 </script>
-
 <template>
-  <div class="history-list">
-    <div v-if="completedAppointments.length === 0">
-      <p>No completed appointments available</p>
-    </div>
-    <div v-for="appointment in completedAppointments"
-         :key="appointment.id"
-         class="history-item-container">
-      <history-item :appointment="appointment" @reviewDeleted="handleReviewDeleted"/>
-    </div>
-  </div>
+<div class="history-list">
+<history-item
+    v-for="appointment in completedAppointments"
+    :key="appointment.id"
+    :appointment="appointment"
+    :review="appointment.review"
+    @reviewDeleted="handleReviewDeleted"
+/>
+</div>
 </template>
 
 <style scoped>
